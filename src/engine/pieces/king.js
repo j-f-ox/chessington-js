@@ -1,4 +1,5 @@
 import Piece from './piece';
+import { isMoveValid } from './moves';
 
 export default class King extends Piece {
     constructor(player) {
@@ -7,7 +8,7 @@ export default class King extends Piece {
 
     getAvailableMoves(board) {
         let currentSquare = board.findPiece(this);
-        let moveArray = [];
+        let movesArray = [];
         for(let i = -1; i < 2; i++) {
             for(let j = -1; j < 2; j++) {
                 if(j === 0 && i === 0) {
@@ -16,12 +17,10 @@ export default class King extends Piece {
                 let newRow = currentSquare.row + i;
                 let newCol = currentSquare.col + j;
                 let newPosition = {row:newRow, col:newCol};
-                if (board.isOnBoard(newPosition)) {
-                    moveArray.push(newPosition);
-                } 
+                isMoveValid(newPosition, board, this.player, movesArray);
             }
         }
-        return moveArray;
+        return movesArray;
     }
 
     isKing() {
