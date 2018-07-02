@@ -1,4 +1,4 @@
-function linearMoves(currentSquare) {
+function linearMoves(currentSquare, board) {
     let movesArray = [];
     const stay = 0;
     const goUp = 1;
@@ -9,7 +9,11 @@ function linearMoves(currentSquare) {
         let newRow = currentSquare.row + possibleMoves[i].row;
         let newCol = currentSquare.col + possibleMoves[i].col;
         while(-1 < newRow && newRow < 8 && -1 < newCol && newCol < 8) {
-            movesArray.push({row: newRow, col:newCol});
+            let newPosition = {row: newRow, col:newCol};
+            if (!board.isSquareEmpty(newPosition)) {
+                break;
+            }
+            movesArray.push(newPosition);
             newRow += possibleMoves[i].row;
             newCol += possibleMoves[i].col;
         } 
@@ -17,7 +21,7 @@ function linearMoves(currentSquare) {
     return movesArray;
 }
 
-function diagonalMoves(currentSquare) {
+function diagonalMoves(currentSquare, board) {
     let movesArray = [];
     for (let i=-1; i<2; i+=2) { //i = -1, 1
         for (let j=-1; j<2; j+=2) {
@@ -26,7 +30,10 @@ function diagonalMoves(currentSquare) {
             let newCol = currentSquare.col + j;
 
             while(-1 < newRow && newRow < 8 && -1 < newCol && newCol < 8) {
-                movesArray.push({row: newRow, col:newCol});
+                let newPosition = {row: newRow, col:newCol};
+                if (board.isSquareEmpty(newPosition)) {
+                    movesArray.push(newPosition);
+                }
                 newRow += i;
                 newCol += j;
             }

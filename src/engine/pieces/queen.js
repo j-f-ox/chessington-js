@@ -9,8 +9,8 @@ export default class Queen extends Piece {
     getAvailableMoves(board) {
         let moveArray = [];
         let currentSquare = board.findPiece(this);
-        moveArray = moveArray.concat(diagonalMoves(currentSquare));
-        moveArray = moveArray.concat(linearMoves(currentSquare));
+        moveArray = moveArray.concat(diagonalMoves(currentSquare, board));
+        moveArray = moveArray.concat(linearMoves(currentSquare, board));
 
         return moveArray;
     }

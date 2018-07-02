@@ -8,6 +8,6 @@ export default class Bishop extends Piece {
 
     getAvailableMoves(board) {
         let currentSquare = board.findPiece(this);
-        return diagonalMoves(currentSquare);
+        return diagonalMoves(currentSquare, board);
     }
 }
