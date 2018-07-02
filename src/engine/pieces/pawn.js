@@ -10,17 +10,13 @@ export default class Pawn extends Piece {
     getAvailableMoves(board) {
         let currentSquare = board.findPiece(this);
         let movesArray = [];
-        if(this.player === Player.WHITE) {
-            movesArray.push({row: currentSquare.row + 1, col: currentSquare.col});
-            if(currentSquare.row === 1) {
-                movesArray.push({row: currentSquare.row + 2, col: currentSquare.col});
+        let direction = this.player === Player.WHITE ? 1 : -1;
+        let pawnStartPosition = this.player === Player.WHITE ? 1 : 6;
+            movesArray.push({row: currentSquare.row + 1*direction, col: currentSquare.col});
+            if(currentSquare.row === pawnStartPosition) {
+                movesArray.push({row: currentSquare.row + 2*direction, col: currentSquare.col});
             }
-        } else {
-            movesArray.push({row: currentSquare.row - 1, col: currentSquare.col});
-            if(currentSquare.row === GameSettings.BOARD_SIZE - 2) {
-                movesArray.push({row: currentSquare.row - 2, col: currentSquare.col});
-            }
-        }
+        
         return movesArray;
     }
 }
