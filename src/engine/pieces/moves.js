@@ -31,9 +31,10 @@ function diagonalMoves(currentSquare, board) {
 
             while(-1 < newRow && newRow < 8 && -1 < newCol && newCol < 8) {
                 let newPosition = {row: newRow, col:newCol};
-                if (board.isSquareEmpty(newPosition)) {
-                    movesArray.push(newPosition);
+                if (!board.isSquareEmpty(newPosition)) {
+                    break;
                 }
+                movesArray.push(newPosition);
                 newRow += i;
                 newCol += j;
             }
