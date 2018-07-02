@@ -23,4 +23,8 @@ export default class King extends Piece {
         }
         return moveArray;
     }
+
+    isKing() {
+        return true;
+    }
 }

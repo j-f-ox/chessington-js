@@ -12,4 +12,8 @@ export default class Piece {
         board.movePiece(currentSquare, newSquare);
     }
 
+    isKing() {
+        return false;
+    }
+
 }

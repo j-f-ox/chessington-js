@@ -1,16 +1,25 @@
-function linearMoves(currentSquare, board) {
+import Player from '../player';
+import King from './king';
+
+function linearMoves(currentSquare, board, player) {
     let movesArray = [];
     const stay = 0;
     const goUp = 1;
     const goDown = -1;
+    let enemyColor = player === Player.WHITE ? Player.BLACK : Player.WHITE;
     let possibleMoves = [{row:stay, col:goUp}, {row:stay, col:goDown},{row:goUp, col:stay}, {row:goDown, col:stay}];
 
     for(let i = 0; i < possibleMoves.length; i++) {
         let newRow = currentSquare.row + possibleMoves[i].row;
         let newCol = currentSquare.col + possibleMoves[i].col;
-        while(-1 < newRow && newRow < 8 && -1 < newCol && newCol < 8) {
+        while( board.isOnBoard({row: newRow, col: newCol})) {
             let newPosition = {row: newRow, col:newCol};
             if (!board.isSquareEmpty(newPosition)) {
+                let otherPiece = board.getPiece(newPosition);
+                if (otherPiece.player === enemyColor
+                        && !otherPiece.isKing()) {
+                        movesArray.push(newPosition);
+                }
                 break;
             }
             movesArray.push(newPosition);
@@ -29,7 +38,7 @@ function diagonalMoves(currentSquare, board) {
             let newRow = currentSquare.row + i;
             let newCol = currentSquare.col + j;
 
-            while(-1 < newRow && newRow < 8 && -1 < newCol && newCol < 8) {
+            while( board.isOnBoard({row: newRow, col: newCol}) ) {
                 let newPosition = {row: newRow, col:newCol};
                 if (!board.isSquareEmpty(newPosition)) {
                     break;
