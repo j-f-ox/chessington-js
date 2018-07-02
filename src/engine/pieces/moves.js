@@ -14,15 +14,9 @@ function linearMoves(currentSquare, board, player) {
         let newCol = currentSquare.col + possibleMoves[i].col;
         while( board.isOnBoard({row: newRow, col: newCol})) {
             let newPosition = {row: newRow, col:newCol};
-            if (!board.isSquareEmpty(newPosition)) {
-                let otherPiece = board.getPiece(newPosition);
-                if (otherPiece.player === enemyColor
-                        && !otherPiece.isKing()) {
-                        movesArray.push(newPosition);
-                }
+            if(!isMoveValid(newPosition, board, player, movesArray)) {
                 break;
             }
-            movesArray.push(newPosition);
             newRow += possibleMoves[i].row;
             newCol += possibleMoves[i].col;
         } 
@@ -41,15 +35,9 @@ function diagonalMoves(currentSquare, board, player) {
 
             while( board.isOnBoard({row: newRow, col: newCol}) ) {
                 let newPosition = {row: newRow, col:newCol};
-                if (!board.isSquareEmpty(newPosition)) {
-                    let otherPiece = board.getPiece(newPosition);
-                    if (otherPiece.player === enemyColor
-                            && !otherPiece.isKing()) {
-                            movesArray.push(newPosition);
-                    }
+                if(!isMoveValid(newPosition, board, player, movesArray)) {
                     break;
                 }
-                movesArray.push(newPosition);
                 newRow += i;
                 newCol += j;
             }
@@ -58,5 +46,22 @@ function diagonalMoves(currentSquare, board, player) {
     return movesArray;
 }
 
-export { linearMoves };
-export { diagonalMoves };
+function isMoveValid(newPosition, board, player, movesArray) { //checks if move is on the board, taking an enemy piece (not the king) or moving to an empty square
+    let enemyColor = player === Player.WHITE ? Player.BLACK : Player.WHITE;   
+    if (board.isOnBoard(newPosition)) {
+        if (!board.isSquareEmpty(newPosition)) {
+            let otherPiece = board.getPiece(newPosition);
+            if (otherPiece.player === enemyColor
+                    && !otherPiece.isKing()) {
+                    movesArray.push(newPosition);
+            }
+            return false; 
+        }
+        movesArray.push(newPosition);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+export { linearMoves, diagonalMoves, isMoveValid};
