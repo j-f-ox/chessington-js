@@ -43,4 +43,8 @@ export default class Board {
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
     }
+
+    isSquareEmpty(square) { //check whether the given square is empty
+        return typeof(this.getPiece(square)) === 'undefined';
+    }
 }
