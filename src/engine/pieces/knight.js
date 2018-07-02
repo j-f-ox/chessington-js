@@ -19,7 +19,10 @@ export default class Knight extends Piece {
         for (let i=0; i<possibleMoves.length; i++){
             let newRow = currentSquare.row + possibleMoves[i].row;
             let newCol = currentSquare.col + possibleMoves[i].col;
-            movesArray.push({row: newRow, col: newCol})
+            let newPosition = {row: newRow, col: newCol};
+            if (board.isOnBoard(newPosition)) {
+                movesArray.push(newPosition);
+            }
         }
         return movesArray;
     }

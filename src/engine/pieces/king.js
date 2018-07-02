@@ -15,7 +15,10 @@ export default class King extends Piece {
                 }
                 let newRow = currentSquare.row + i;
                 let newCol = currentSquare.col + j;
-                moveArray.push({row:newRow, col:newCol});
+                let newPosition = {row:newRow, col:newCol};
+                if (board.isOnBoard(newPosition)) {
+                    moveArray.push(newPosition);
+                } 
             }
         }
         return moveArray;

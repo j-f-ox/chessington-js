@@ -47,4 +47,8 @@ export default class Board {
     isSquareEmpty(square) { //check whether the given square is empty
         return typeof(this.getPiece(square)) === 'undefined';
     }
+
+    isOnBoard(square) { //return true if square is on the board, false otherwise
+        return (0<=square.row && square.row<=7 && 0<=square.col && square.col<=7);
+    }
 }
