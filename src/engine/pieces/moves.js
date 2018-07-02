@@ -30,8 +30,9 @@ function linearMoves(currentSquare, board, player) {
     return movesArray;
 }
 
-function diagonalMoves(currentSquare, board) {
+function diagonalMoves(currentSquare, board, player) {
     let movesArray = [];
+    let enemyColor = player === Player.WHITE ? Player.BLACK : Player.WHITE;
     for (let i=-1; i<2; i+=2) { //i = -1, 1
         for (let j=-1; j<2; j+=2) {
             
@@ -41,6 +42,11 @@ function diagonalMoves(currentSquare, board) {
             while( board.isOnBoard({row: newRow, col: newCol}) ) {
                 let newPosition = {row: newRow, col:newCol};
                 if (!board.isSquareEmpty(newPosition)) {
+                    let otherPiece = board.getPiece(newPosition);
+                    if (otherPiece.player === enemyColor
+                            && !otherPiece.isKing()) {
+                            movesArray.push(newPosition);
+                    }
                     break;
                 }
                 movesArray.push(newPosition);
