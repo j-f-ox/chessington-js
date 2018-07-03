@@ -74,7 +74,17 @@ export default class Board {
     }
 
     isPlayerInCheckMate() {
-        return "false";
+        for (let row = 0; row < this.board.length; row++) {
+            for (let col = 0; col < this.board[row].length; col++) {
+                let currentPiece = this.board[row][col];
+                if (!!currentPiece 
+                    && currentPiece.player === this.currentPlayer) {
+                    if( currentPiece.getLegalMoves(this).length > 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
-
 }
