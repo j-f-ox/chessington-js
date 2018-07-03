@@ -54,7 +54,7 @@ export default class Board {
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
-            movingPiece.getAvailableMoves(this);
+            this.verifyCheckStateAfterMovingPiece();
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
     }
@@ -69,6 +69,17 @@ export default class Board {
 
     playerIsInCheck(player) { //return true if pieces on square are under attack by enemy pieces
         return !!this.playerInCheck && this.playerInCheck === player;
+    }
+
+    verifyCheckStateAfterMovingPiece() {
+        for (let row = 0; row < this.board.length; row++) {
+            for (let col = 0; col < this.board[row].length; col++) {
+                if (!!this.board[row][col] 
+                    && this.board[row][col].player === this.currentPlayer) {
+                    this.board[row][col].getAvailableMoves(this);
+                }
+            }
+        }
     }
 
 }
