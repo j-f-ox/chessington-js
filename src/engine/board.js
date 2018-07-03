@@ -6,6 +6,7 @@ export default class Board {
     constructor(currentPlayer) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
+        //this.check = typeof options.check !== 'undefined' ? options.check : false; //by default the board is not in check
     }
 
     createBoard() {
@@ -51,4 +52,9 @@ export default class Board {
     isOnBoard(square) { //return true if square is on the board, false otherwise
         return (0<=square.row && square.row<=7 && 0<=square.col && square.col<=7);
     }
+
+    isUnderAttack(square, player) { //return true if pieces on square are under attack by enemy pieces
+        return "false";
+    }
+
 }

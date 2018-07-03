@@ -1,5 +1,6 @@
 import Piece from './piece';
 import { isMoveValid } from './moves';
+import Square from '../square';
 
 export default class King extends Piece {
     constructor(player) {
@@ -16,7 +17,7 @@ export default class King extends Piece {
                 }
                 let newRow = currentSquare.row + i;
                 let newCol = currentSquare.col + j;
-                let newPosition = {row:newRow, col:newCol};
+                let newPosition = new Square(newRow, newCol);
                 isMoveValid(newPosition, board, this.player, movesArray);
             }
         }

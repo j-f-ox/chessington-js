@@ -1,5 +1,5 @@
 import Player from '../player';
-import King from './king';
+import Square from '../square';
 
 function linearMoves(currentSquare, board, player) {
     let movesArray = [];
@@ -13,7 +13,7 @@ function linearMoves(currentSquare, board, player) {
         let newRow = currentSquare.row + possibleMoves[i].row;
         let newCol = currentSquare.col + possibleMoves[i].col;
         while( board.isOnBoard({row: newRow, col: newCol})) {
-            let newPosition = {row: newRow, col:newCol};
+            let newPosition = new Square(newRow, newCol);
             if(!isMoveValid(newPosition, board, player, movesArray)) {
                 break;
             }
@@ -34,7 +34,7 @@ function diagonalMoves(currentSquare, board, player) {
             let newCol = currentSquare.col + j;
 
             while( board.isOnBoard({row: newRow, col: newCol}) ) {
-                let newPosition = {row: newRow, col:newCol};
+                let newPosition = new Square(newRow, newCol);
                 if(!isMoveValid(newPosition, board, player, movesArray)) {
                     break;
                 }
