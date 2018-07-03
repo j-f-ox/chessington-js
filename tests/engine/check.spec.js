@@ -20,7 +20,7 @@ describe('Check', () => {
         board.setPiece(Square.at(3, 4), king);
         board.setPiece(Square.at(3, 6), opposingRook);
 
-        const isBoardChecked = board.isUnderAttack(board, Player.WHITE);
+        const isBoardChecked = board.isUnderAttack(Player.WHITE);
         isBoardChecked.should.be.eql(true);
     });
 
@@ -30,7 +30,7 @@ describe('Check', () => {
         board.setPiece(Square.at(3, 4), king);
         board.setPiece(Square.at(3, 6), opposingRook);
 
-        const isBoardChecked = board.isUnderAttack(board, Player.WHITE);
+        const isBoardChecked = board.isUnderAttack(Player.WHITE);
         isBoardChecked.should.be.eql(true);
     });
 
@@ -40,7 +40,7 @@ describe('Check', () => {
         board.setPiece(Square.at(3, 4), king);
         board.setPiece(Square.at(5, 6), opposingRook);
 
-        const isBoardChecked = board.isUnderAttack(board, Player.WHITE);
+        const isBoardChecked = board.isUnderAttack(Player.WHITE);
         isBoardChecked.should.be.eql(true);
     });
 
@@ -50,7 +50,7 @@ describe('Check', () => {
         board.setPiece(Square.at(3, 4), king);
         board.setPiece(Square.at(4, 6), opposingRook);
 
-        const isBoardChecked = board.isUnderAttack(board, Player.WHITE);
+        const isBoardChecked = board.isUnderAttack(Player.WHITE);
         isBoardChecked.should.be.eql(true);
     });
 
@@ -60,7 +60,7 @@ describe('Check', () => {
         board.setPiece(Square.at(3, 4), king);
         board.setPiece(Square.at(2, 3), opposingRook);
 
-        const isBoardChecked = board.isUnderAttack(board, Player.WHITE);
+        const isBoardChecked = board.isUnderAttack(Player.WHITE);
         isBoardChecked.should.be.eql(true);
     });
 
@@ -70,7 +70,7 @@ describe('Check', () => {
         board.setPiece(Square.at(3, 4), king);
         board.setPiece(Square.at(4, 6), opposingRook);
 
-        const isBoardChecked = board.isUnderAttack(board, Player.WHITE);
+        const isBoardChecked = board.isUnderAttack(Player.WHITE);
         isBoardChecked.should.be.eql(false);
     });
 });

@@ -6,7 +6,7 @@ export default class Board {
     constructor(currentPlayer) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
-        //this.check = typeof options.check !== 'undefined' ? options.check : false; //by default the board is not in check
+        this.check = typeof options.check !== 'undefined' ? options.check : false; //by default the board is not in check
     }
 
     createBoard() {
@@ -36,6 +36,19 @@ export default class Board {
         throw new Error('The supplied piece is not on the board');
     }
 
+    findKing(player) {
+        for (let row = 0; row < this.board.length; row++) {
+            for (let col = 0; col < this.board[row].length; col++) {
+                if (!!this.board[row][col] 
+                    && this.board[row][col].isKing() 
+                    && this.board[row][col].player === player) {
+                    return Square.at(row, col);
+                }
+            }
+        }
+        throw new Error('The supplied piece is not on the board');
+    }
+
     movePiece(fromSquare, toSquare) {
         const movingPiece = this.getPiece(fromSquare);        
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
@@ -53,8 +66,21 @@ export default class Board {
         return (0<=square.row && square.row<=7 && 0<=square.col && square.col<=7);
     }
 
-    isUnderAttack(square, player) { //return true if pieces on square are under attack by enemy pieces
-        return "false";
+    isUnderAttack(player) { //return true if pieces on square are under attack by enemy pieces
+        let enemyColor = player === Player.WHITE ? Player.BLACK : Player.WHITE;
+        let kingSquare = this.findKing(player);
+        for (let row = 0; row < this.board.length; row++) {
+            for (let col = 0; col < this.board[row].length; col++) {
+                let currentPiece = this.board[row][col];
+                if (!!currentPiece && currentPiece.player === enemyColor) {                
+                    if(currentPiece.getAvailableMoves(this).some(move => kingSquare.equals(move))) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
 }
