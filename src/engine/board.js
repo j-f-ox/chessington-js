@@ -73,4 +73,8 @@ export default class Board {
         }
     }
 
+    isPlayerInCheckMate() {
+        return "false";
+    }
+
 }

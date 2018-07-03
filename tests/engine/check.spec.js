@@ -78,6 +78,41 @@ describe('Check', () => {
         moves.should.not.deep.include.members([Square.at(5,5)]);
     });
 
+    
+    it('Check mate', () => {
+        const king = new King(Player.WHITE);
+        const opposingRook = new Rook(Player.BLACK);
+        const checkMateRook = new Rook(Player.BLACK);
+        const friendlyRook = new Rook(Player.WHITE);
+        
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(0, 5), checkMateRook);
+        board.setPiece(Square.at(1, 5), opposingRook);
+        board.setPiece(Square.at(7, 0), friendlyRook);
+
+        const isCheckMate = board.isPlayerInCheckMate();
+
+        isCheckMate.should.be.eql(true);
+        
+    });
+
+    it('Not check mate as friendly rook can take opposingRook', () => {
+        const king = new King(Player.WHITE);
+        const opposingRook = new Rook(Player.BLACK);
+        const checkMateRook = new Rook(Player.BLACK);
+        const friendlyRook = new Rook(Player.WHITE);
+        
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(0, 2), checkMateRook);
+        board.setPiece(Square.at(1, 5), opposingRook);
+        board.setPiece(Square.at(7, 5), friendlyRook);
+
+        const isCheckMate = board.isPlayerInCheckMate();
+
+        isCheckMate.should.be.eql(false);
+    });
+
+
 
     it('King is in check by knight', () => {
         const king = new King(Player.BLACK);
