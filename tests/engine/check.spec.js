@@ -105,7 +105,7 @@ describe('Check', () => {
         board.setPiece(Square.at(0, 7), king);
         board.setPiece(Square.at(0, 2), checkMateRook);
         board.setPiece(Square.at(1, 5), opposingRook);
-        board.setPiece(Square.at(7, 5), friendlyRook);
+        board.setPiece(Square.at(7, 2), friendlyRook);
 
         const isCheckMate = board.isPlayerInCheckMate();
 
