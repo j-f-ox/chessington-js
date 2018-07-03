@@ -51,13 +51,11 @@ function isMoveValid(newPosition, board, player, movesArray) { //checks if move 
     if (board.isOnBoard(newPosition)) {
         if (!board.isSquareEmpty(newPosition)) {
             let otherPiece = board.getPiece(newPosition);
-            console.log(otherPiece);
             if (otherPiece.player === enemyColor
                     && !otherPiece.isKing()) {
                     movesArray.push(newPosition);
             } else if(otherPiece.player === enemyColor
                  && otherPiece.isKing()) {
-                    console.log("Check!");
                     board.playerInCheck = enemyColor;
             }
             return false; 

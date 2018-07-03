@@ -16,10 +16,10 @@ describe('Check', () => {
 
     it('King is in check by rook', () => {
         const king = new King(Player.BLACK);
-        const opposingRook = new Rook(Player.WHITE);
+        const opposingPiece = new Rook(Player.WHITE);
         
         board.setPiece(Square.at(3, 4), king);
-        board.setPiece(Square.at(4, 6), opposingRook);
+        board.setPiece(Square.at(4, 6), opposingPiece);
         board.movePiece(Square.at(4, 6), Square.at(3, 6));
 
         const isBoardChecked = board.playerIsInCheck(Player.BLACK);
@@ -28,10 +28,10 @@ describe('Check', () => {
 
     it('King is in check by queen', () => {
         const king = new King(Player.BLACK);
-        const opposingRook = new Queen(Player.WHITE);
+        const opposingPiece = new Queen(Player.WHITE);
         
         board.setPiece(Square.at(3, 4), king);
-        board.setPiece(Square.at(4, 6), opposingRook);
+        board.setPiece(Square.at(4, 6), opposingPiece);
         board.movePiece(Square.at(4, 6), Square.at(3, 6));
 
         const isBoardChecked = board.playerIsInCheck(Player.BLACK);
@@ -40,11 +40,25 @@ describe('Check', () => {
 
     it('King is in check by bishop', () => {
         const king = new King(Player.BLACK);
-        const opposingRook = new Bishop(Player.WHITE);
+        const opposingPiece = new Bishop(Player.WHITE);
         
         board.setPiece(Square.at(3, 4), king);
-        board.setPiece(Square.at(4, 5), opposingRook);
+        board.setPiece(Square.at(4, 5), opposingPiece);
         board.movePiece(Square.at(4, 5), Square.at(5, 6));
+
+        const isBoardChecked = board.playerIsInCheck(Player.BLACK);
+        isBoardChecked.should.be.eql(true);
+    });
+
+    it('King is in check by moving another ', () => {
+        const king = new King(Player.BLACK);
+        const opposingBishop = new Bishop(Player.WHITE);
+        const opposingRook = new Rook(Player.WHITE);
+        
+        board.setPiece(Square.at(3, 4), king);
+        board.setPiece(Square.at(4, 4), opposingBishop);
+        board.setPiece(Square.at(5, 4), opposingRook);
+        board.movePiece(Square.at(4, 4), Square.at(5, 5));
 
         const isBoardChecked = board.playerIsInCheck(Player.BLACK);
         isBoardChecked.should.be.eql(true);
@@ -52,10 +66,10 @@ describe('Check', () => {
 
     it('King is in check by knight', () => {
         const king = new King(Player.BLACK);
-        const opposingRook = new Knight(Player.WHITE);
+        const opposingPiece = new Knight(Player.WHITE);
         
         board.setPiece(Square.at(3, 4), king);
-        board.setPiece(Square.at(2, 5), opposingRook);
+        board.setPiece(Square.at(2, 5), opposingPiece);
         board.movePiece(Square.at(2, 5), Square.at(4, 6));
 
         const isBoardChecked = board.playerIsInCheck(Player.BLACK);
@@ -64,10 +78,10 @@ describe('Check', () => {
 
     it('King is in check by pawn', () => {
         const king = new King(Player.BLACK);
-        const opposingRook = new Pawn(Player.WHITE);
+        const opposingPiece = new Pawn(Player.WHITE);
         
         board.setPiece(Square.at(3, 4), king);
-        board.setPiece(Square.at(1, 3), opposingRook);
+        board.setPiece(Square.at(1, 3), opposingPiece);
         board.movePiece(Square.at(1, 3), Square.at(2, 3));
 
         const isBoardChecked = board.playerIsInCheck(Player.BLACK);
@@ -76,10 +90,10 @@ describe('Check', () => {
 
     it('King is not in check', () => {
         const king = new King(Player.BLACK);
-        const opposingRook = new Rook(Player.WHITE);
+        const opposingPiece = new Rook(Player.WHITE);
         
         board.setPiece(Square.at(3, 4), king);
-        board.setPiece(Square.at(4, 6), opposingRook);
+        board.setPiece(Square.at(4, 6), opposingPiece);
         board.movePiece(Square.at(4, 6), Square.at(2, 6));
 
         const isBoardChecked = board.playerIsInCheck(Player.BLACK);
