@@ -4,6 +4,7 @@ import { diagonalMoves } from './moves';
 export default class Bishop extends Piece {
     constructor(player) {
         super(player);
+        this.type = "Bishop";
     }
 
     getAvailableMoves(board) {

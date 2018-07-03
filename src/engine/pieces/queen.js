@@ -4,6 +4,7 @@ import { diagonalMoves, linearMoves } from './moves';
 export default class Queen extends Piece {
     constructor(player) {
         super(player);
+        this.type = "Queen";
     }
 
     getAvailableMoves(board) {

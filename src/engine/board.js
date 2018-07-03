@@ -28,35 +28,26 @@ export default class Board {
     findPiece(pieceToFind) {
         for (let row = 0; row < this.board.length; row++) {
             for (let col = 0; col < this.board[row].length; col++) {
-                if (this.board[row][col] === pieceToFind) {
+                if (!!this.board[row][col] && this.board[row][col].equals(pieceToFind)) {
                     return Square.at(row, col);
                 }
             }
         }
         throw new Error('The supplied piece is not on the board');
     }
-
-    findKing(player) {
-        for (let row = 0; row < this.board.length; row++) {
-            for (let col = 0; col < this.board[row].length; col++) {
-                if (!!this.board[row][col] 
-                    && this.board[row][col].isKing() 
-                    && this.board[row][col].player === player) {
-                    return Square.at(row, col);
-                }
-            }
-        }
-        throw new Error('The supplied piece is not on the board');
-    }
-
     movePiece(fromSquare, toSquare) {
-        const movingPiece = this.getPiece(fromSquare);        
-        if (!!movingPiece && movingPiece.player === this.currentPlayer) {
-            this.setPiece(toSquare, movingPiece);
-            this.setPiece(fromSquare, undefined);
-            this.verifyCheckStateAfterMovingPiece();
-            this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
+        const movingPiece = this.getPiece(fromSquare);
+        if(!movingPiece){
+            throw new Error('The supplied square is empty.');
         }
+        if(movingPiece.player !== this.currentPlayer){
+            throw new Error('Tried to move an opponent\'s piece.');
+        }
+
+        this.setPiece(toSquare, movingPiece);
+        this.setPiece(fromSquare, undefined);
+        this.verifyCheckStateAfterMovingPiece(this.currentPlayer);
+        this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
     }
 
     isSquareEmpty(square) { //check whether the given square is empty
@@ -71,11 +62,11 @@ export default class Board {
         return !!this.playerInCheck && this.playerInCheck === player;
     }
 
-    verifyCheckStateAfterMovingPiece() {
+    verifyCheckStateAfterMovingPiece(player) {
         for (let row = 0; row < this.board.length; row++) {
             for (let col = 0; col < this.board[row].length; col++) {
                 if (!!this.board[row][col] 
-                    && this.board[row][col].player === this.currentPlayer) {
+                    && this.board[row][col].player === player) {
                     this.board[row][col].getAvailableMoves(this);
                 }
             }

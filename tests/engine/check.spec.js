@@ -64,6 +64,21 @@ describe('Check', () => {
         isBoardChecked.should.be.eql(true);
     });
 
+    it('Prevent moving if king gets in check', () => {
+        const king = new King(Player.WHITE);
+        const friendlyBishop = new Bishop(Player.WHITE);
+        const opposingRook = new Rook(Player.BLACK);
+        
+        board.setPiece(Square.at(3, 4), king);
+        board.setPiece(Square.at(4, 4), friendlyBishop);
+        board.setPiece(Square.at(5, 4), opposingRook);
+
+        const moves = friendlyBishop.getLegalMoves(board);
+
+        moves.should.not.deep.include.members([Square.at(5,5)]);
+    });
+
+
     it('King is in check by knight', () => {
         const king = new King(Player.BLACK);
         const opposingPiece = new Knight(Player.WHITE);

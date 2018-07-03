@@ -4,6 +4,7 @@ import { linearMoves } from './moves';
 export default class Rook extends Piece {
     constructor(player) {
         super(player);
+        this.type = "Rook";
     }
 
     getAvailableMoves(board) {
