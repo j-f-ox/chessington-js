@@ -15,7 +15,7 @@ export default class Pawn extends Piece {
         
 
         for(let i = -1; i < 2; i+=2) {
-            let newPosition = { row: currentSquare.row + 1 * direction, col: currentSquare.col + i };
+            let newPosition = { row: currentSquare.row + direction, col: currentSquare.col + i };
             if (board.isOnBoard(newPosition)) {
                 if (board.isSquareEmpty(newPosition)) {
                     continue;
@@ -24,7 +24,7 @@ export default class Pawn extends Piece {
             isMoveValid(newPosition, board, this.player, movesArray);
         }
         
-        let newPosition = { row: currentSquare.row + 1 * direction, col: currentSquare.col };
+        let newPosition = { row: currentSquare.row + direction, col: currentSquare.col };
 
         if (board.isOnBoard(newPosition)) { //check we are not moving off the board
             if (board.isSquareEmpty(newPosition)){ //check that we are moving to an empty square
